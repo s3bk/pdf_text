@@ -10,12 +10,14 @@ description = "PDF text extraction"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-# Sebastian's forks, fetched over ssh (Seb, 2026-11-08: "publish pdf2md and
-# reference via ssh link"). They were paths into the sibling checkouts before,
-# which nothing else could resolve: cargo reads this manifest, so a path that
-# exists only on one machine makes the crate unusable as a dependency.
-pdf = { git = "ssh://git@github.com/s3bk/pdf.git", branch = "master", features = ["cache"] }
-pdf_render = { git = "ssh://git@github.com/s3bk/pdf_render.git", branch = "vello" }
+# Sebastian's forks, fetched over https from the public forks (public since
+# 2026-11-13). They were paths into the sibling checkouts before, which nothing
+# else could resolve: cargo reads this manifest, so a path that exists only on
+# one machine makes the crate unusable as a dependency. They were ssh URLs
+# between 2026-11-08 and 2026-11-13, which made every clone need a key with read
+# access to s3bk's forks — including a tester's Mac. https needs no key.
+pdf = { git = "https://github.com/s3bk/pdf.git", branch = "master", features = ["cache"] }
+pdf_render = { git = "https://github.com/s3bk/pdf_render.git", branch = "vello" }
 # Pinned to the rev `pdf_render` names, so the two cannot resolve different
 # copies of `font`.
 font = { git = "https://github.com/pdf-rs/font", rev = "032f427839837c6e1fac7333bd4039d3482d17a7", features = ["cff"] }
